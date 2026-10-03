@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bankberater – App laden</title>
+<!--
+  Ziel des QR-Codes auf den Aufklebern. Leitet je nach Gerät in den passenden Store weiter.
+
+  Der Code enthält die Adresse ohne Endung: https://realigge17.github.io/bankberater-web/a –
+  GitHub Pages liefert dafür diese Datei aus. So kurz ist sie, weil jedes Zeichen den Code
+  dichter macht und die Kästchen kleiner. Sobald gedruckt ist, lässt sich die Adresse nicht mehr
+  ändern – die Datei darf dann weder umbenannt noch gelöscht werden. Ändern lässt sich nur,
+  wohin sie weiterleitet.
+
+  Sobald die iPhone-Version im App Store steht: unten bei IOS die Adresse eintragen. Mehr ist
+  nicht nötig, iPhones werden dann von selbst weitergeleitet.
+-->
+<script>
+  var PLAY = "https://play.google.com/store/apps/details?id=com.bankberater.app";
+  var IOS = "";
+
+  var ua = navigator.userAgent || "";
+  var istAndroid = /Android/i.test(ua);
+  // iPads geben sich seit iPadOS 13 als Mac aus – erkennbar nur am Touchscreen.
+  var istIos = /iPhone|iPad|iPod/i.test(ua) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  // replace statt href: sonst führt "Zurück" im Store wieder hierher und sofort erneut weiter.
+  if (istAndroid) {
+    location.replace(PLAY);
+  } else if (istIos && IOS) {
+    location.replace(IOS);
+  } else if (istIos) {
+    document.documentElement.className = "ios";
+  }
+</script>
+<style>
+  :root {
+    --bg: #fdfaf7; --fg: #2e2a26; --muted: #6b6259; --line: #e4dcd3;
+    --accent: #b4573a; --card: #f5efe8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1917; --fg: #e8e2db; --muted: #a49a90; --line: #3a342f;
+      --accent: #e08461; --card: #262220;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 4rem 1.25rem 5rem;
+    background: var(--bg); color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 34rem; margin: 0 auto; }
+  h1 { font-size: 2.1rem; margin: 0 0 .5rem; }
+  .untertitel { color: var(--muted); margin: 0 0 2.5rem; }
+  a.karte {
+    display: block; text-decoration: none; color: inherit;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: .6rem; padding: 1.1rem 1.25rem; margin-bottom: .85rem;
+  }
+  a.karte:hover { border-color: var(--accent); }
+  a.karte strong { color: var(--accent); display: block; margin-bottom: .2rem; }
+  a.karte span { color: var(--muted); font-size: .93rem; }
+  .hinweis {
+    border: 1px solid var(--line); border-radius: .6rem;
+    padding: 1.1rem 1.25rem; margin-bottom: .85rem; color: var(--muted);
+  }
+  .hinweis strong { color: var(--fg); display: block; margin-bottom: .2rem; }
+  /* Auf dem iPhone steht der Hinweis oben, der Play-Store-Link hilft dort nicht weiter. */
+  .ios main { display: flex; flex-direction: column; }
+  .ios .hinweis { order: -1; border-color: var(--accent); }
+  .ios h1, .ios .untertitel { order: -2; }
+  footer { margin-top: 3rem; color: var(--muted); font-size: .9rem; }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Bankberater</h1>
+<p class="untertitel">Die Karte für Sitzbänke: finden, bewerten, sammeln.</p>
+
+<a class="karte" href="https://play.google.com/store/apps/details?id=com.bankberater.app">
+  <strong>Für Android bei Google Play</strong>
+  <span>Kostenlos, ohne Anmeldung, ohne Werbung.</span>
+</a>
+
+<div class="hinweis">
+  <strong>iPhone und iPad</strong>
+  Die Version für iPhone und iPad ist in Arbeit, aber noch nicht erschienen.
+</div>
+
+<footer>
+  <a href="index.html">Über Bankberater</a> ·
+  <a href="datenschutz.html">Datenschutzerklärung</a>
+</footer>
+
+</main>
+</body>
+</html>
